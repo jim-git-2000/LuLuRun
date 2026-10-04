@@ -1,0 +1,52 @@
+{
+  "idle": [
+    {
+      "file": "lulu_idle_0001.png",
+      "sha256": "60a7b81689a5582fc5a0357301d539ff3d30f638ea2bbd003290208c4e7380ab"
+    },
+    {
+      "file": "lulu_idle_0008.png",
+      "sha256": "7a39c4009255088ef655dc36d9b458909be3d5bc6ebedb0f678f24aa587cc72e"
+    },
+    {
+      "file": "lulu_idle_0015.png",
+      "sha256": "077f5de785008dbf96953a6c80934b36095cf8991e3abbac79e0e6436a46380d"
+    },
+    {
+      "file": "lulu_idle_0022.png",
+      "sha256": "49bbebabde17487f9c182a7c0aa1be15fbc3f21976de2db60549839640366961"
+    },
+    {
+      "file": "lulu_idle_0029.png",
+      "sha256": "ab3c88df05f8940bb50a3cf2fb21cd16c36e8c3da2b8f86cf9ccca0206814045"
+    },
+    {
+      "file": "lulu_idle_0036.png",
+      "sha256": "7a39c4009255088ef655dc36d9b458909be3d5bc6ebedb0f678f24aa587cc72e"
+    },
+    {
+      "file": "lulu_idle_0043.png",
+      "sha256": "60a7b81689a5582fc5a0357301d539ff3d30f638ea2bbd003290208c4e7380ab"
+    },
+    {
+      "file": "lulu_idle_0050.png",
+      "sha256": "7493762cb4e79a8520ce5f7934e33374bca946eb2addb494c152c19e673d780b"
+    },
+    {
+      "file": "lulu_idle_0057.png",
+      "sha256": "bc07dbc4817478e901fe1cb2e29880d2898f67c2d0fce23394a2a8b029f1fda9"
+    },
+    {
+      "file": "lulu_idle_0064.png",
+      "sha256": "ade084bdaef8fc14e40378db670524e0a687f13abad72b0501e5343886f47a5b"
+    },
+    {
+      "file": "lulu_idle_0071.png",
+      "sha256": "bd93bffcd70e9cfe86c97bd0a9269d97a6dba4099aad3d9c835530a0c7b9c1f4"
+    },
+    {
+      "file": "lulu_idle_0078.png",
+      "sha256": "7493762cb4e79a8520ce5f7934e33374bca946eb2addb494c152c19e673d780b"
+    }
+  ]
+}

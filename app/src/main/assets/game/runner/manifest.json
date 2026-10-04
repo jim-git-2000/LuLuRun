@@ -1,0 +1,29 @@
+{
+  "width": 1254,
+  "height": 1254,
+  "anchorThreshold": 64,
+  "groups": {
+    "run": [
+      { "file": "lulu_run_01.png", "anchorY": 1096, "sha256": "6c49da76a57cce1aeae2b8f7a4f87fb6fb8002669b1b637c046f390445e4fbf4" },
+      { "file": "lulu_run_02.png", "anchorY": 1060, "sha256": "3aa6ef05ff633974c5fd3ba96ff65744f7323d43718afb4a21ee1ac944794405" },
+      { "file": "lulu_run_03.png", "anchorY": 1066, "sha256": "f4c46cdb86fe491c48feac9a77646d49575291e4a53b89f36de9ac17fcb13b17" },
+      { "file": "lulu_run_04.png", "anchorY": 1083, "sha256": "b37812cb2891e887f2624d04999fed886c594a335cfb797e2d2e46994deabace" },
+      { "file": "lulu_run_05.png", "anchorY": 1100, "sha256": "2a624b1b44ad656ced9747a9c036f79692061910b6a1c1b98fc90da4340a2a3d" },
+      { "file": "lulu_run_06.png", "anchorY": 1067, "sha256": "eb93b6438666c3f5e729efb83708e789060571909f69d136122fe596bdbbe931" },
+      { "file": "lulu_run_07.png", "anchorY": 1060, "sha256": "82b1dffad3788c60fb0227b0bccad89866fcc775b8e4b29f2efce572559e8044" },
+      { "file": "lulu_run_08.png", "anchorY": 1099, "sha256": "8ed0e54be7b4a1a2a46b81d5a91b5f7adfa3ea6de7de09f01061337fe990ac83" }
+    ],
+    "jump": [
+      { "file": "lulu_jump_01.png", "anchorY": 1064, "sha256": "cc37391376cd83217eaf603827cdf19f4294f7a0bde5c6e56af02c9a9106b9c2" },
+      { "file": "lulu_jump_02.png", "anchorY": 1101, "sha256": "bff3c72107f914d35b8da3fda8de21c5ead65e786f927ee1a43d3dbce836e62b" },
+      { "file": "lulu_jump_03.png", "anchorY": 1059, "sha256": "a8ab5cbc1a719f4d37e0b2d37e9c075ada668c27fffdb645a100120369bc7814" },
+      { "file": "lulu_jump_04.png", "anchorY": 1075, "sha256": "8ce170d27341fe02ef0a0646b7b6be88672daacc44a6f3d90b0915f57077369b" }
+    ],
+    "slide": [
+      { "file": "lulu_slide_01.png", "anchorY": 1068, "sha256": "ebca6df55b465a0fb52a19305fbfda99e13ce82c4c511001f200121a6196c457" },
+      { "file": "lulu_slide_02.png", "anchorY": 1110, "sha256": "74b85aaf26509c0f8b9fdfb87e6130aabd91b625bc38e079058d4015942a2b3d" },
+      { "file": "lulu_slide_03.png", "anchorY": 1054, "sha256": "af6d5ab52bf09448eb8062def79dccbcc6f01353e3ab6cf3f18a165619075989" },
+      { "file": "lulu_slide_04.png", "anchorY": 1064, "sha256": "7e68007577a076a0ac0c65dce6656d8489902bf5c6de3495698fd5e2abf48076" }
+    ]
+  }
+}

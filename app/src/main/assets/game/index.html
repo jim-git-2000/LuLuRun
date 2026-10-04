@@ -1,0 +1,87 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
+  <meta name="theme-color" content="#173f43">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self'; style-src 'self'; script-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'">
+  <title>LuLu 跑跑</title>
+  <link rel="stylesheet" href="style.css">
+  <script defer src="core.js"></script>
+  <script defer src="game.js"></script>
+</head>
+<body>
+<main id="app">
+  <canvas id="world" aria-label="LuLu 的三跑道城市冒险"></canvas>
+  <div class="vignette"></div>
+
+  <section id="home" class="screen">
+    <header class="home-top">
+      <span class="brand"><span class="brand-dot"></span> LULU STUDIO</span>
+      <button class="icon-button sound-button" aria-label="关闭声音" title="声音">♪</button>
+    </header>
+    <div class="hero-title">
+      <div class="eyebrow">一场说跑就跑的小冒险</div>
+      <h1><span>LuLu</span> 跑跑<span class="title-star">✦</span></h1>
+      <p>把烦恼甩在身后，把快乐装进口袋。</p>
+      <div class="records">
+        <div><span class="record-icon">♛</span><span>最高分<strong id="home-best">0</strong></span></div>
+        <div><span class="coin-icon">L</span><span>小金库<strong id="home-bank">0</strong></span></div>
+      </div>
+    </div>
+    <div class="location-label"><span></span> 阳光小镇 <b>01</b></div>
+    <div class="home-bottom">
+      <div class="start-card">
+        <div class="card-heading"><span>今天也要开心向前</span><span class="offline">● 离线畅玩</span></div>
+        <button id="start" class="primary" disabled><span id="start-text">LuLu 正在热身…</span><span class="button-arrow">↗</span></button>
+        <div class="swipe-guide"><span>↔ 左右换道</span><i></i><span>↑ 上滑跳跃</span><i></i><span>↓ 下滑翻滚</span></div>
+      </div>
+      <div class="home-links"><button id="help-open">怎么玩 <span>?</span></button><span>跑起来，好事就会发生</span><button id="controls-toggle">辅助按键：关</button></div>
+    </div>
+  </section>
+
+  <section id="hud" class="screen" hidden>
+    <header class="hud-top">
+      <div class="distance-card"><span>向前跑了</span><strong><span id="distance">0</span><small> m</small></strong><span id="speed-label">轻快起跑</span></div>
+      <div class="hud-right"><div class="coin-pill"><span class="coin-icon">L</span><strong id="coins">0</strong></div><button id="pause" class="icon-button" aria-label="暂停">Ⅱ</button></div>
+    </header>
+    <div class="mission"><div><span id="mission-text">小目标 · 收集 20 枚金币</span><span id="mission-progress">0 / 20</span></div><div class="progress-track"><div id="mission-fill"></div></div></div>
+    <div id="powers"><span id="shield-status" hidden>◇ 护盾 <b></b></span><span id="magnet-status" hidden>U 磁铁 <b></b></span></div>
+    <div id="toast" role="status" aria-live="polite"></div>
+    <div id="run-hint">左右换道 · 上滑跳跃 · 下滑翻滚</div>
+    <div id="touch-controls" hidden><button data-action="left" aria-label="左移">←</button><button data-action="jump" aria-label="跳跃">↑</button><button data-action="slide" aria-label="翻滚">↓</button><button data-action="right" aria-label="右移">→</button></div>
+  </section>
+
+  <section id="pause-screen" class="modal-layer" hidden>
+    <div class="modal">
+      <span class="modal-kicker">TAKE A BREATH</span><h2>歇一小会儿</h2><p>快乐不用赶路，LuLu 在这里等你。</p>
+      <button id="resume" class="primary">继续冒险 <span>→</span></button>
+      <button id="pause-sound" class="secondary sound-button">声音：开</button>
+      <button id="quit" class="text-button">结束本局并回到小镇</button>
+    </div>
+  </section>
+
+  <section id="result-screen" class="modal-layer" hidden>
+    <div class="modal result-modal">
+      <span id="result-kicker" class="modal-kicker">NICE RUN!</span><h2 id="result-title">这一程，真开心</h2><p id="crash-tip"></p>
+      <div class="result-score"><strong id="result-score">0</strong><span>本次得分</span></div>
+      <div class="result-stats"><div><strong id="result-distance">0 m</strong><span>跑过的路</span></div><div><strong id="result-coins">0</strong><span>收获金币</span></div><div><strong id="result-best">0</strong><span>最高得分</span></div></div>
+      <button id="retry" class="primary">再跑一次 <span>↗</span></button><button id="back-home" class="text-button">回到阳光小镇</button>
+    </div>
+  </section>
+
+  <section id="help-screen" class="modal-layer" hidden>
+    <div class="modal help-modal"><span class="modal-kicker">LET'S PLAY</span><h2>指尖一滑，快乐出发</h2>
+      <div class="help-row"><b>↔</b><div><strong>左右滑动 · 切换跑道</strong><p>大木箱要绕开，留意前方空着的路。</p></div></div>
+      <div class="help-row"><b>↑</b><div><strong>向上滑动 · 轻松跳跃</strong><p>跳过橙白路栏，也可以换道避开。</p></div></div>
+      <div class="help-row"><b>↓</b><div><strong>向下滑动 · 低头翻滚</strong><p>从薄荷绿横杆下面钻过去。</p></div></div>
+      <div class="power-guide"><span>◇ 护盾抵挡一次碰撞</span><span>U 磁铁吸取三道金币</span></div>
+      <p class="help-note">道具持续 9 秒。每跑 1 米得 1 分，每枚金币加 10 分。可以开启辅助按键，也支持方向键 / WASD。</p>
+      <button id="help-close" class="primary">知道啦，出发！ <span>→</span></button>
+    </div>
+  </section>
+  <div id="countdown" hidden aria-live="assertive">3</div>
+  <div id="load-error" class="load-error" hidden>角色加载失败，请重新打开游戏。<button id="reload">重新加载</button></div>
+</main>
+</body>
+</html>
