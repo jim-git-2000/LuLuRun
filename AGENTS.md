@@ -55,7 +55,7 @@
 - `app/src/main/java/com/lulu/run/`：Android 宿主，仅负责本地页面加载、全屏和生命周期。
 - `app/src/main/assets/game/`：游戏页面、样式与脚本；`core.js` 为可独立验证的逻辑，`game.js` 为绘制、声音与交互。
 - `app/src/main/assets/game/pet/`：从 LuLuPet 复制的角色动画，仅保留游戏使用的帧；来源和命名记入该目录的 `SOURCE.md`，不修改来源项目。
-- `app/src/main/assets/game/runner/`：以 LuLuPet 造型为参考生成的背面跑酷帧、动作布局及生成提示词。正式资源优先使用逐帧生成的透明 PNG；整张图集可作为动作参考源保留，但存在跨格污染时不得由游戏加载。奔跑、跳跃、滑行始终背对镜头，不用正面行走或压扁立绘冒充动作。
+- `app/src/main/assets/game/runner/`：以 LuLuPet 与公开噜噜图片为参考生成的背面跑酷帧；参考来源记入 `SOURCE.md`，提示词记入 `PROMPT.md`。正式资源优先使用逐帧生成的透明 PNG；存在跨格污染的图集不得由游戏加载。奔跑、跳跃、滑行始终背对镜头，不用正面行走或压扁立绘冒充动作。`manifest.json` 是文件、尺寸、锚点和播放参数的唯一来源，运行时与资源检查共同读取，禁止在代码中重复维护帧表。
 - `app/src/main/res/`：Android 图标、主题及字符串；资源使用小写下划线命名。
 - `tests/`：Node 内置测试运行器执行的逻辑验证，不引入 npm 依赖；正式验证与 APK 打包由 `.github/workflows/android.yml` 完成。
 - `scripts/`：标准库实现的本地轻量检查；本地可执行语法、资源完整性和游戏逻辑检查，不安装开发环境。

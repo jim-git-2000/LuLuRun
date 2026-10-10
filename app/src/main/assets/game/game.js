@@ -4,7 +4,7 @@
   const $ = id => document.getElementById(id);
   const canvas = $('world');
   const ctx = canvas.getContext('2d', { alpha: false });
-  const { Run, sanitizeSave, JUMP_TIME, SLIDE_TIME } = LuluCore;
+  const { Run, sanitizeSave, animationIndex } = LuluCore;
   const SAVE_KEY = 'lulu.run.v1';
   let save;
   try { save = sanitizeSave(JSON.parse(localStorage.getItem(SAVE_KEY))); }
@@ -14,7 +14,7 @@
   let w = 390, h = 844, clock = 0, last = 0;
   let settled = false, countdown = 0, countdownAction = null;
   let toastUntil = 0, crashFlash = 0, missionStage = 0;
-  let audio = null, musicBeat = -1;
+  let audio = null, musicBeat = -1, runnerManifest = null;
   const frames = {}, particles = [];
   const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   const tips = { crate: '大木箱跳不过去，试试左右换道。', hurdle: '遇到橙白路栏，上滑跳过去。', gate: '遇到绿色横杆，下滑从下面穿过。' };
@@ -87,6 +87,7 @@
   }
 
   function show(name) {
+    gesture = null;
     $('home').hidden = name !== 'home';
     $('hud').hidden = name === 'home';
     $('pause-screen').hidden = name !== 'paused';
@@ -96,6 +97,7 @@
   }
 
   function start() {
+    if ($('start').disabled || !['home', 'over'].includes(scene)) return;
     unlockAudio();
     run = new Run(); settled = false; missionStage = 0; musicBeat = -1;
     particles.length = 0; crashFlash = 0;
@@ -126,6 +128,7 @@
   }
 
   function pause() {
+    gesture = null;
     if (countdown > 0) {
       countdown = 0; countdownAction = null; $('countdown').hidden = true;
       show('paused');
@@ -139,7 +142,7 @@
   window.pauseGame = pause;
 
   function resume() {
-    if (countdown > 0) return;
+    if (scene !== 'paused' || countdown > 0) return;
     unlockAudio();
     $('pause-screen').hidden = true;
     $('countdown').hidden = false;
@@ -206,13 +209,14 @@
   $('app').addEventListener('pointerup', clearGesture);
   $('app').addEventListener('pointercancel', clearGesture);
   document.addEventListener('keydown', event => {
-    const action = { ArrowLeft: 'left', a: 'left', ArrowRight: 'right', d: 'right', ArrowUp: 'jump', w: 'jump', ' ': 'jump', ArrowDown: 'slide', s: 'slide' }[event.key];
+    const action = { arrowleft: 'left', a: 'left', arrowright: 'right', d: 'right', arrowup: 'jump', w: 'jump', ' ': 'jump', arrowdown: 'slide', s: 'slide' }[event.key.toLowerCase()];
     if (action && scene === 'running') { event.preventDefault(); if (!event.repeat) act(action); }
-    if (event.key === 'Escape') { event.preventDefault(); window.handleBack(); }
+    if (event.key === 'Escape') { event.preventDefault(); if (!event.repeat) window.handleBack(); }
   });
   document.addEventListener('visibilitychange', () => { if (document.hidden) pause(); });
   window.addEventListener('blur', pause);
-  window.addEventListener('pagehide', () => { if (scene !== 'home' && !settled) settle(); });
+  // A page may return from the browser's back/forward cache: pause, do not settle it early.
+  window.addEventListener('pagehide', pause);
 
   function updateHud() {
     $('distance').textContent = Math.floor(run.distance).toLocaleString();
@@ -389,10 +393,10 @@
       for (let i = 0; i < 3; i++) polygon([[x - s * .47 + i * s * .34, y - s * .55], [x - s * .29 + i * s * .34, y - s * .55], [x - s * .39 + i * s * .34, y - s * .29], [x - s * .55 + i * s * .34, y - s * .29]], '#ed925d');
       label('↑', x, y - s * .65, s * .22, '#fff9df');
     } else if (item.kind === 'gate') {
-      for (const side of [-1, 1]) rounded(x + side * s * .48 - s * .055, y - s * 1.72, s * .11, s * 1.76, 3 * p.p, '#356f65');
-      rounded(x - s * .56, y - s * 1.75, s * 1.12, s * .73, 5 * p.p, '#4daa94');
-      rounded(x - s * .49, y - s * 1.65, s * .98, s * .48, 3 * p.p, '#83c9af');
-      label('↓', x, y - s * 1.28, s * .38, '#fff5d1', '900');
+      for (const side of [-1, 1]) rounded(x + side * s * .48 - s * .055, y - s * 2.05, s * .11, s * 2.09, 3 * p.p, '#356f65');
+      rounded(x - s * .56, y - s * 2.08, s * 1.12, s * .73, 5 * p.p, '#4daa94');
+      rounded(x - s * .49, y - s * 1.98, s * .98, s * .48, 3 * p.p, '#83c9af');
+      label('↓', x, y - s * 1.61, s * .38, '#fff5d1', '900');
       for (const side of [-1, 1]) rounded(x + side * s * .48 - s * .055, y - s * .65, s * .11, s * .18, p.p, '#ffe2a0');
     } else {
       const py = y - s * .68 + Math.sin(clock * 4) * 4 * p.p;
@@ -407,7 +411,7 @@
     const p = project(run.x - 1, 0);
     const x = home ? w / 2 : p.x;
     const feet = home ? Math.min(h * .745, h - 218) : p.y;
-    const size = home ? Math.min(w * .59, h * .30) : w * .35;
+    const size = home ? Math.min(w * .59, h * .30) : w * .40;
     const jump = home ? Math.sin(clock * 2) * 2 : run.height * w * .27;
     const slide = !home && run.slide > 0;
     ellipse(x, feet + 1, size * (slide ? .36 : .28) * (1 - (home ? 0 : run.height * .28)), size * .055, '#244f3c32');
@@ -418,18 +422,14 @@
     const animation = home ? 'idle' : run.jump > 0 ? 'jump' : slide ? 'slide' : 'run';
     const set = frames[animation];
     if (!set) return;
-    let index;
-    if (animation === 'jump') index = Math.min(set.length - 1, Math.floor((1 - run.jump / JUMP_TIME) * set.length));
-    else if (animation === 'slide') index = Math.min(set.length - 1, Math.floor((1 - run.slide / SLIDE_TIME) * set.length));
-    else index = Math.floor((home ? clock * 9 : run.time * 14) % set.length);
-    const image = set[index];
+    const index = home ? Math.floor(clock * 9) % set.length
+      : animationIndex(run, animation, runnerManifest);
+    const sprite = set[index];
     ctx.save();
     ctx.translate(x, feet - jump);
     if (!home && run.invincible > 0) ctx.globalAlpha = .55 + .45 * Math.sin(clock * 40) ** 2;
     if (!home) ctx.rotate((run.lane - run.x) * .13);
-    const bob = !home && !slide && run.jump <= 0 && !reducedMotion ? Math.sin(run.time * 20) * 2.5 : 0;
-    const anchorY = home ? 464 : image.anchorY;
-    ctx.drawImage(image, -size / 2, -size * anchorY / image.naturalHeight + bob, size, size);
+    ctx.drawImage(sprite.image, -size * sprite.anchorX, -size * sprite.anchorY, size, size);
     ctx.restore();
     if (!home && run.magnet > 0) {
       ctx.strokeStyle = '#ffe19ab0'; ctx.lineWidth = 2;
@@ -512,28 +512,61 @@
   requestAnimationFrame(frame);
 
   async function loadFrames() {
-    const runner = {
-      run: [1096, 1060, 1066, 1083, 1100, 1067, 1060, 1099],
-      jump: [1064, 1101, 1059, 1075],
-      slide: [1068, 1110, 1054, 1064]
-    };
-    function loadImage(src, anchorY) {
+    async function readManifest(path) {
+      const controller = new AbortController();
+      const timeout = setTimeout(() => controller.abort(), 15000);
+      try {
+        const response = await fetch(path, { signal: controller.signal });
+        if (!response.ok) throw new Error(`Cannot load ${path}`);
+        return await response.json();
+      } finally { clearTimeout(timeout); }
+    }
+    function loadImage(src, anchorX, anchorY) {
       return new Promise((resolve, reject) => {
         const image = new Image();
-        image.onload = () => { image.anchorY = anchorY; resolve(image); };
-        image.onerror = reject;
+        const timeout = setTimeout(() => { image.onload = image.onerror = null; image.src = ''; reject(new Error('Image timed out')); }, 15000);
+        image.onload = () => {
+          clearTimeout(timeout);
+          try {
+            // Keep only a phone-sized drawing surface, not 1.5 million pixels per frame.
+            const bitmap = document.createElement('canvas');
+            bitmap.width = bitmap.height = 512;
+            const context = bitmap.getContext('2d');
+            context.imageSmoothingQuality = 'high';
+            context.drawImage(image, 0, 0, 512, 512);
+            resolve({ image: bitmap, anchorX, anchorY });
+          } catch (error) { reject(error); }
+          finally { image.onload = image.onerror = null; image.src = ''; }
+        };
+        image.onerror = () => { clearTimeout(timeout); reject(new Error(`Cannot load ${src}`)); };
         image.src = src;
       });
     }
     try {
-      frames.idle = await Promise.all(Array.from({ length: 12 }, (_, index) =>
-        loadImage(`pet/lulu_idle_${String(index * 7 + 1).padStart(4, '0')}.png`, 464)));
-      await Promise.all(Object.entries(runner).map(async ([name, anchors]) => {
-        frames[name] = await Promise.all(anchors.map((anchorY, index) =>
-          loadImage(`runner/lulu_${name}_${String(index + 1).padStart(2, '0')}.png`, anchorY)));
-      }));
+      const [pet, runner] = await Promise.all([readManifest('pet/manifest.json'), readManifest('runner/manifest.json')]);
+      runnerManifest = runner;
+      const jobs = [
+        ...pet.idle.map((frame, index) => ({ group: 'idle', index, src: `pet/${frame.file}`, x: .5, y: 464 / 512 })),
+        ...Object.entries(runner.groups).flatMap(([group, groupFrames]) => groupFrames.map((frame, index) => ({
+          group, index, src: `runner/${frame.file}`, x: frame.anchorX / runner.width, y: frame.anchorY / runner.height
+        })))
+      ];
+      const loaded = { idle: [], run: [], jump: [], slide: [] };
+      let completed = 0, failed = false;
+      const total = jobs.length;
+      // Two decoders limit transient memory on older Android devices.
+      async function worker() {
+        while (jobs.length && !failed) {
+          const job = jobs.shift();
+          try { loaded[job.group][job.index] = await loadImage(job.src, job.x, job.y); }
+          catch (error) { failed = true; throw error; }
+          if (!failed) $('start-text').textContent = `LuLu 正在热身 ${++completed} / ${total}`;
+        }
+      }
+      await Promise.all([worker(), worker()]);
+      Object.assign(frames, loaded);
       $('start').disabled = false; $('start-text').textContent = '开始跑跑';
-    } catch (_) { $('load-error').hidden = false; }
+    } catch (_) { $('start-text').textContent = '热身未完成'; $('load-error').hidden = false; }
   }
   loadFrames();
 })();

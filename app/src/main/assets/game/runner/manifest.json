@@ -2,28 +2,219 @@
   "width": 1254,
   "height": 1254,
   "anchorThreshold": 64,
-  "groups": {
-    "run": [
-      { "file": "lulu_run_01.png", "anchorY": 1096, "sha256": "6c49da76a57cce1aeae2b8f7a4f87fb6fb8002669b1b637c046f390445e4fbf4" },
-      { "file": "lulu_run_02.png", "anchorY": 1060, "sha256": "3aa6ef05ff633974c5fd3ba96ff65744f7323d43718afb4a21ee1ac944794405" },
-      { "file": "lulu_run_03.png", "anchorY": 1066, "sha256": "f4c46cdb86fe491c48feac9a77646d49575291e4a53b89f36de9ac17fcb13b17" },
-      { "file": "lulu_run_04.png", "anchorY": 1083, "sha256": "b37812cb2891e887f2624d04999fed886c594a335cfb797e2d2e46994deabace" },
-      { "file": "lulu_run_05.png", "anchorY": 1100, "sha256": "2a624b1b44ad656ced9747a9c036f79692061910b6a1c1b98fc90da4340a2a3d" },
-      { "file": "lulu_run_06.png", "anchorY": 1067, "sha256": "eb93b6438666c3f5e729efb83708e789060571909f69d136122fe596bdbbe931" },
-      { "file": "lulu_run_07.png", "anchorY": 1060, "sha256": "82b1dffad3788c60fb0227b0bccad89866fcc775b8e4b29f2efce572559e8044" },
-      { "file": "lulu_run_08.png", "anchorY": 1099, "sha256": "8ed0e54be7b4a1a2a46b81d5a91b5f7adfa3ea6de7de09f01061337fe990ac83" }
-    ],
+  "strideMeters": 10,
+  "phaseEnds": {
     "jump": [
-      { "file": "lulu_jump_01.png", "anchorY": 1064, "sha256": "cc37391376cd83217eaf603827cdf19f4294f7a0bde5c6e56af02c9a9106b9c2" },
-      { "file": "lulu_jump_02.png", "anchorY": 1101, "sha256": "bff3c72107f914d35b8da3fda8de21c5ead65e786f927ee1a43d3dbce836e62b" },
-      { "file": "lulu_jump_03.png", "anchorY": 1059, "sha256": "a8ab5cbc1a719f4d37e0b2d37e9c075ada668c27fffdb645a100120369bc7814" },
-      { "file": "lulu_jump_04.png", "anchorY": 1075, "sha256": "8ce170d27341fe02ef0a0646b7b6be88672daacc44a6f3d90b0915f57077369b" }
+      0.12,
+      0.42,
+      0.8,
+      1
     ],
     "slide": [
-      { "file": "lulu_slide_01.png", "anchorY": 1068, "sha256": "ebca6df55b465a0fb52a19305fbfda99e13ce82c4c511001f200121a6196c457" },
-      { "file": "lulu_slide_02.png", "anchorY": 1110, "sha256": "74b85aaf26509c0f8b9fdfb87e6130aabd91b625bc38e079058d4015942a2b3d" },
-      { "file": "lulu_slide_03.png", "anchorY": 1054, "sha256": "af6d5ab52bf09448eb8062def79dccbcc6f01353e3ab6cf3f18a165619075989" },
-      { "file": "lulu_slide_04.png", "anchorY": 1064, "sha256": "7e68007577a076a0ac0c65dce6656d8489902bf5c6de3495698fd5e2abf48076" }
+      0.12,
+      0.5,
+      0.9,
+      1
+    ]
+  },
+  "groups": {
+    "run": [
+      {
+        "file": "lulu_run_01.png",
+        "anchorX": 627,
+        "anchorY": 1128,
+        "bounds": [
+          335,
+          132,
+          919,
+          1126
+        ],
+        "sha256": "f523d306f4b98272da3e9c317e2850b71ff94033608c3f8fa7ffc0be2cba4698"
+      },
+      {
+        "file": "lulu_run_08.png",
+        "anchorX": 627,
+        "anchorY": 1128,
+        "bounds": [
+          333,
+          132,
+          923,
+          1108
+        ],
+        "sha256": "0c98c575e9aee1a8381d23040520364034b29423046ee1df1a32e2cbae377506"
+      },
+      {
+        "file": "lulu_run_07.png",
+        "anchorX": 627,
+        "anchorY": 1128,
+        "bounds": [
+          354,
+          132,
+          939,
+          1079
+        ],
+        "sha256": "32539fb73a8056502dbe0b08becea6d9bca63597ce699fa4ce4beea7e35cc7ad"
+      },
+      {
+        "file": "lulu_run_03.png",
+        "anchorX": 627,
+        "anchorY": 1128,
+        "bounds": [
+          341,
+          132,
+          921,
+          1112
+        ],
+        "sha256": "72c3893509f07cdb223678d2b74dd3cb35ace3d7541441e87a72d44d16c1876b"
+      },
+      {
+        "file": "lulu_run_05.png",
+        "anchorX": 627,
+        "anchorY": 1128,
+        "bounds": [
+          333,
+          131,
+          921,
+          1126
+        ],
+        "sha256": "4e84672a10f46fecc3c5f9109e446d95bf748a5c3ce9adce2ac1c05a85827546"
+      },
+      {
+        "file": "lulu_run_04.png",
+        "anchorX": 627,
+        "anchorY": 1128,
+        "bounds": [
+          331,
+          132,
+          920,
+          1115
+        ],
+        "sha256": "299a6523325d7434db067318d54bcc33973e884725f74c7e69cd3488566164d7"
+      },
+      {
+        "file": "lulu_run_06.png",
+        "anchorX": 627,
+        "anchorY": 1128,
+        "bounds": [
+          326,
+          131,
+          922,
+          1097
+        ],
+        "sha256": "28df86a76c22cae627860f32c4302de09141c893c49da86110db65105111ddfd"
+      },
+      {
+        "file": "lulu_run_02.png",
+        "anchorX": 627,
+        "anchorY": 1128,
+        "bounds": [
+          342,
+          133,
+          921,
+          1082
+        ],
+        "sha256": "160cc87c1fce1cb75cd95c86b34f28e16438684a0a6cce894c3afba9f50e5a5a"
+      }
+    ],
+    "jump": [
+      {
+        "file": "lulu_jump_01.png",
+        "anchorX": 627,
+        "anchorY": 1128,
+        "bounds": [
+          290,
+          131,
+          969,
+          1107
+        ],
+        "sha256": "d75d94c9908448a7ae042734ea9554aa62ab425c698a73bab49a78718955888a"
+      },
+      {
+        "file": "lulu_jump_02.png",
+        "anchorX": 627,
+        "anchorY": 1128,
+        "bounds": [
+          279,
+          130,
+          975,
+          1044
+        ],
+        "sha256": "44a61c74f86757e1980ac1624058119909d102106d6d73e253ff86ee02abe88d"
+      },
+      {
+        "file": "lulu_jump_03.png",
+        "anchorX": 627,
+        "anchorY": 1128,
+        "bounds": [
+          294,
+          131,
+          960,
+          1050
+        ],
+        "sha256": "3f5c25b8bd9135dd4d6f933680d537985e8d4fad42a4224bf13c054310d2159f"
+      },
+      {
+        "file": "lulu_jump_04.png",
+        "anchorX": 627,
+        "anchorY": 1069,
+        "bounds": [
+          347,
+          144,
+          924,
+          1069
+        ],
+        "sha256": "feba41dbd209dbe0b6a78f8b5a6bb9c1db39f7c1c4d81d2d6ec8821b1ebef907"
+      }
+    ],
+    "slide": [
+      {
+        "file": "lulu_slide_01.png",
+        "anchorX": 627,
+        "anchorY": 1045,
+        "bounds": [
+          362,
+          275,
+          919,
+          1045
+        ],
+        "sha256": "606d5592cfe7d4665c8eaab8b8b26fdf5996648be17467dbd0dc423a1fe9610e"
+      },
+      {
+        "file": "lulu_slide_02.png",
+        "anchorX": 627,
+        "anchorY": 1065,
+        "bounds": [
+          334,
+          379,
+          930,
+          1065
+        ],
+        "sha256": "7b8b18dbd5d2c60641135e21d06fdc3795a20625cd37bcb3eb567a748698fc1e"
+      },
+      {
+        "file": "lulu_slide_03.png",
+        "anchorX": 627,
+        "anchorY": 1065,
+        "bounds": [
+          307,
+          378,
+          952,
+          1065
+        ],
+        "sha256": "9f8290ecaa46ebe59c4b73d2e8b45b7aa3edace1ea4e44e81c44890e1ee8ee64"
+      },
+      {
+        "file": "lulu_slide_04.png",
+        "anchorX": 627,
+        "anchorY": 1045,
+        "bounds": [
+          359,
+          274,
+          920,
+          1045
+        ],
+        "sha256": "5d6a016c6584670f618d85b9bcf555ab8a6e6c2e9ad356e8999f7a90d6f266ae"
+      }
     ]
   }
 }

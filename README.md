@@ -2,15 +2,15 @@
 
 一个 Android 竖屏、离线的三跑道跑酷游戏，搭配阳光小镇、透视街道和原创障碍物。使用 Canvas 2.5D 渲染与 Android 系统 WebView 宿主，不是完整 3D 引擎游戏。
 
-角色跑酷动画已经按 LuLuPet 造型重新生成：奔跑、跳跃和低姿滑行均背对玩家，使用 16 张独立透明序列帧。四肢经过二次微调，更短、更圆润；主页仍保留原有正面待机动画。生成规范保存在 [runner/PROMPT.md](app/src/main/assets/game/runner/PROMPT.md)。
+角色参考 LuLuPet 与公开噜噜背影图片重新绘制：奔跑、跳跃和低姿滑行均背对玩家，使用 16 张独立透明序列帧。奔跑保持统一机位和身体基准，步频随前进速度变化；主页保留原有正面待机动画。[资源来源](app/src/main/assets/game/runner/SOURCE.md)和[逐帧提示词](app/src/main/assets/game/runner/PROMPT.md)随项目保存。
 
 ## 已实现
 
-- 左右滑动换道，上滑跳跃，下滑翻滚；可选屏幕辅助按键。
-- 木箱需要换道；橙白路栏可以跳过；绿色横杆需要翻滚或换道。
+- 左右滑动换道，上滑跳跃，下滑滑行；可选屏幕辅助按键。
+- 木箱需要换道；橙白路栏可以跳过；绿色横杆需要滑行或换道。
 - 随机生成障碍和金币，每排保留至少一条安全跑道；随距离逐渐加速。
 - 护盾抵挡一次碰撞，磁铁吸取三条跑道上的金币，道具持续 9 秒。
-- 本局小目标、距离、金币、最高分与累计金币本地保存。
+- 本局显示小目标、距离和金币；结算后保存最高分、累计金币、累计距离和局数，声音与辅助按键设置也在本地保存。
 - 开始、暂停、恢复倒数、碰撞结算和再来一局；切后台或失去焦点自动暂停。
 - 本地合成音效和轻音乐，可一键静音。无需账户、广告、联网权限或服务器。
 
@@ -38,7 +38,7 @@ npm run check
 npm test
 ```
 
-第一项检查 JavaScript 语法、XML、页面引用、12 张主页待机帧与 16 张背面跑酷帧的尺寸和 SHA-256；第二项验证跑道生成、碰撞、道具、暂停和不同帧率下的行为。正式 Android lint / build 在 CI 执行。
+第一项检查 JavaScript 语法、XML、页面引用、文档链接和角色资源；背面帧还检查 PNG 校验码、实际透明边界、边缘裁切及播放参数。第二项验证跑道生成、碰撞、道具、暂停和动画时间线。正式 Android lint / build 在 CI 执行。
 
 如已安装浏览器，可启动本地预览：
 
@@ -48,6 +48,8 @@ python3 -m http.server 8080 --bind 127.0.0.1 --directory app/src/main/assets/gam
 
 打开 `http://127.0.0.1:8080`；桌面用方向键 / WASD，空格跳跃，Esc 暂停。该页面只是开发预览，交付目标为 Android APK。
 
+如已安装 Firefox 和 geckodriver，还可执行 `python3 scripts/check_browser.py`，检查真实页面流程并将截图、日志保存至 `/tmp/lulur-run-browser-*`。脚本不会安装浏览器；不在 PATH 中时可用 `--firefox` 和 `--geckodriver` 指定已有程序。它需要本地回环端口权限，不能替代 Android 真机验收。
+
 ## 工程入口
 
 - [Android 宿主](app/src/main/java/com/lulu/run/MainActivity.java)：拦截本地虚拟 HTTPS 地址、屏幕安全区、全屏与生命周期。
@@ -56,5 +58,6 @@ python3 -m http.server 8080 --bind 127.0.0.1 --directory app/src/main/assets/gam
 - [资源来源](app/src/main/assets/game/pet/SOURCE.md)：原始 LuLuPet 资源路径与用途。
 - [背面跑酷动作](app/src/main/assets/game/runner/SOURCE.md)：16 张独立透明序列帧、帧顺序、脚底锚点与生成提示词。
 - [构建流程](.github/workflows/android.yml)：检查并产出可下载 APK 与 Android lint 报告。
+- [实现与维护说明](docs/IMPLEMENTATION.md)：状态流转、资源加载、动画参数与修改后的验证方式。
 
 当前仓库内容和本地检查不能代替 APK 构建成功或真机验收；后两项以实际 CI 和手机运行结果为准。

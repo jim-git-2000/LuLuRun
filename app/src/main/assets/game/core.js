@@ -173,5 +173,16 @@
     };
   }
 
-  return { Run, seededRandom, sanitizeSave, STEP, JUMP_TIME, SLIDE_TIME, HAZARDS };
+  function animationIndex(run, name, manifest) {
+    const count = manifest.groups[name].length;
+    if (name === 'run') {
+      return Math.floor(run.distance / manifest.strideMeters * count) % count;
+    }
+    const duration = name === 'jump' ? JUMP_TIME : SLIDE_TIME;
+    const progress = Math.max(0, Math.min(1, 1 - run[name] / duration));
+    const index = manifest.phaseEnds[name].findIndex(end => progress < end);
+    return index < 0 ? count - 1 : index;
+  }
+
+  return { Run, seededRandom, sanitizeSave, animationIndex, STEP, JUMP_TIME, SLIDE_TIME, HAZARDS };
 });

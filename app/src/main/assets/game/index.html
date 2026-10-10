@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover">
   <meta name="theme-color" content="#173f43">
-  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self'; style-src 'self'; script-src 'self'; connect-src 'none'; object-src 'none'; base-uri 'none'">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'self'; img-src 'self'; style-src 'self'; script-src 'self'; connect-src 'self'; object-src 'none'; base-uri 'none'">
   <title>LuLu 跑跑</title>
   <link rel="stylesheet" href="style.css">
   <script defer src="core.js"></script>
@@ -34,7 +34,7 @@
       <div class="start-card">
         <div class="card-heading"><span>今天也要开心向前</span><span class="offline">● 离线畅玩</span></div>
         <button id="start" class="primary" disabled><span id="start-text">LuLu 正在热身…</span><span class="button-arrow">↗</span></button>
-        <div class="swipe-guide"><span>↔ 左右换道</span><i></i><span>↑ 上滑跳跃</span><i></i><span>↓ 下滑翻滚</span></div>
+        <div class="swipe-guide"><span>↔ 左右换道</span><i></i><span>↑ 上滑跳跃</span><i></i><span>↓ 下滑滑行</span></div>
       </div>
       <div class="home-links"><button id="help-open">怎么玩 <span>?</span></button><span>跑起来，好事就会发生</span><button id="controls-toggle">辅助按键：关</button></div>
     </div>
@@ -48,8 +48,8 @@
     <div class="mission"><div><span id="mission-text">小目标 · 收集 20 枚金币</span><span id="mission-progress">0 / 20</span></div><div class="progress-track"><div id="mission-fill"></div></div></div>
     <div id="powers"><span id="shield-status" hidden>◇ 护盾 <b></b></span><span id="magnet-status" hidden>U 磁铁 <b></b></span></div>
     <div id="toast" role="status" aria-live="polite"></div>
-    <div id="run-hint">左右换道 · 上滑跳跃 · 下滑翻滚</div>
-    <div id="touch-controls" hidden><button data-action="left" aria-label="左移">←</button><button data-action="jump" aria-label="跳跃">↑</button><button data-action="slide" aria-label="翻滚">↓</button><button data-action="right" aria-label="右移">→</button></div>
+    <div id="run-hint">左右换道 · 上滑跳跃 · 下滑滑行</div>
+    <div id="touch-controls" hidden><button data-action="left" aria-label="左移">←</button><button data-action="jump" aria-label="跳跃">↑</button><button data-action="slide" aria-label="滑行">↓</button><button data-action="right" aria-label="右移">→</button></div>
   </section>
 
   <section id="pause-screen" class="modal-layer" hidden>
@@ -74,7 +74,7 @@
     <div class="modal help-modal"><span class="modal-kicker">LET'S PLAY</span><h2>指尖一滑，快乐出发</h2>
       <div class="help-row"><b>↔</b><div><strong>左右滑动 · 切换跑道</strong><p>大木箱要绕开，留意前方空着的路。</p></div></div>
       <div class="help-row"><b>↑</b><div><strong>向上滑动 · 轻松跳跃</strong><p>跳过橙白路栏，也可以换道避开。</p></div></div>
-      <div class="help-row"><b>↓</b><div><strong>向下滑动 · 低头翻滚</strong><p>从薄荷绿横杆下面钻过去。</p></div></div>
+      <div class="help-row"><b>↓</b><div><strong>向下滑动 · 低姿滑行</strong><p>从薄荷绿横杆下面钻过去。</p></div></div>
       <div class="power-guide"><span>◇ 护盾抵挡一次碰撞</span><span>U 磁铁吸取三道金币</span></div>
       <p class="help-note">道具持续 9 秒。每跑 1 米得 1 分，每枚金币加 10 分。可以开启辅助按键，也支持方向键 / WASD。</p>
       <button id="help-close" class="primary">知道啦，出发！ <span>→</span></button>

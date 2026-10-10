@@ -70,6 +70,7 @@ public final class MainActivity extends Activity {
                     String mime = path.endsWith(".js") ? "application/javascript"
                         : path.endsWith(".css") ? "text/css"
                         : path.endsWith(".png") ? "image/png"
+                        : path.endsWith(".json") ? "application/json"
                         : "text/html";
                     return new WebResourceResponse(mime, "UTF-8", stream);
                 } catch (IOException exception) {

@@ -1,6 +1,7 @@
 const { test } = require('node:test');
 const assert = require('node:assert/strict');
-const { Run, HAZARDS, sanitizeSave } = require('../app/src/main/assets/game/core.js');
+const { Run, HAZARDS, sanitizeSave, animationIndex, JUMP_TIME, SLIDE_TIME } = require('../app/src/main/assets/game/core.js');
+const animation = require('../app/src/main/assets/game/runner/manifest.json');
 
 function emptyRun() {
   const run = new Run(2026);
@@ -185,4 +186,29 @@ test('corrupt or future saves cannot break scores or settings', () => {
   const save = sanitizeSave({ best: -10, bank: Infinity, runs: '3', distance: 2.9, sound: false, buttons: true });
   assert.equal(save.best, 0); assert.equal(save.bank, 0); assert.equal(save.runs, 0);
   assert.equal(save.distance, 2); assert.equal(save.sound, false); assert.equal(save.buttons, true);
+});
+
+test('run animation follows distance and stays frozen while paused', () => {
+  const run = emptyRun();
+  run.distance = animation.strideMeters * 2.4;
+  const expected = Math.floor(.4 * animation.groups.run.length);
+  assert.equal(animationIndex(run, 'run', animation), expected);
+  run.pause(); advance(run, 3);
+  assert.equal(animationIndex(run, 'run', animation), expected);
+  run.distance += animation.strideMeters;
+  assert.equal(animationIndex(run, 'run', animation), expected);
+});
+
+test('jump and slide use their complete one-shot timeline, including the last frame', () => {
+  const run = emptyRun();
+  for (const [name, duration] of [['jump', JUMP_TIME], ['slide', SLIDE_TIME]]) {
+    let previous = 0;
+    animation.phaseEnds[name].forEach((end, index) => {
+      run[name] = duration * (1 - (previous + end) / 2);
+      assert.equal(animationIndex(run, name, animation), index);
+      previous = end;
+    });
+    run[name] = 0;
+    assert.equal(animationIndex(run, name, animation), animation.groups[name].length - 1);
+  }
 });
